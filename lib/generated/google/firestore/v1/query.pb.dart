@@ -778,6 +778,147 @@ class StructuredQuery_Projection extends $pb.GeneratedMessage {
   $core.List<StructuredQuery_FieldReference> get fields => $_getList(0);
 }
 
+/// Nearest Neighbors search config.
+class StructuredQuery_FindNearest extends $pb.GeneratedMessage {
+  factory StructuredQuery_FindNearest({
+    StructuredQuery_FieldReference? vectorField,
+    $1.Value? queryVector,
+    StructuredQuery_FindNearest_DistanceMeasure? distanceMeasure,
+    $0.Int32Value? limit,
+  }) {
+    final $result = create();
+    if (vectorField != null) {
+      $result.vectorField = vectorField;
+    }
+    if (queryVector != null) {
+      $result.queryVector = queryVector;
+    }
+    if (distanceMeasure != null) {
+      $result.distanceMeasure = distanceMeasure;
+    }
+    if (limit != null) {
+      $result.limit = limit;
+    }
+    return $result;
+  }
+  StructuredQuery_FindNearest._() : super();
+  factory StructuredQuery_FindNearest.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory StructuredQuery_FindNearest.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'StructuredQuery.FindNearest',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'google.firestore.v1'),
+      createEmptyInstance: create)
+    ..aOM<StructuredQuery_FieldReference>(
+        1, _omitFieldNames ? '' : 'vectorField',
+        subBuilder: StructuredQuery_FieldReference.create)
+    ..aOM<$1.Value>(2, _omitFieldNames ? '' : 'queryVector',
+        subBuilder: $1.Value.create)
+    ..e<StructuredQuery_FindNearest_DistanceMeasure>(
+        3, _omitFieldNames ? '' : 'distanceMeasure', $pb.PbFieldType.OE,
+        defaultOrMaker: StructuredQuery_FindNearest_DistanceMeasure
+            .DISTANCE_MEASURE_UNSPECIFIED,
+        valueOf: StructuredQuery_FindNearest_DistanceMeasure.valueOf,
+        enumValues: StructuredQuery_FindNearest_DistanceMeasure.values)
+    ..aOM<$0.Int32Value>(4, _omitFieldNames ? '' : 'limit',
+        subBuilder: $0.Int32Value.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  StructuredQuery_FindNearest clone() =>
+      StructuredQuery_FindNearest()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  StructuredQuery_FindNearest copyWith(
+          void Function(StructuredQuery_FindNearest) updates) =>
+      super.copyWith(
+              (message) => updates(message as StructuredQuery_FindNearest))
+          as StructuredQuery_FindNearest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static StructuredQuery_FindNearest create() =>
+      StructuredQuery_FindNearest._();
+  StructuredQuery_FindNearest createEmptyInstance() => create();
+  static $pb.PbList<StructuredQuery_FindNearest> createRepeated() =>
+      $pb.PbList<StructuredQuery_FindNearest>();
+  @$core.pragma('dart2js:noInline')
+  static StructuredQuery_FindNearest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<StructuredQuery_FindNearest>(create);
+  static StructuredQuery_FindNearest? _defaultInstance;
+
+  /// Required. An indexed vector field to search upon. Only documents which
+  /// contain vectors whose dimensionality match the query_vector can be
+  /// returned.
+  @$pb.TagNumber(1)
+  StructuredQuery_FieldReference get vectorField => $_getN(0);
+  @$pb.TagNumber(1)
+  set vectorField(StructuredQuery_FieldReference v) {
+    setField(1, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasVectorField() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVectorField() => clearField(1);
+  @$pb.TagNumber(1)
+  StructuredQuery_FieldReference ensureVectorField() => $_ensure(0);
+
+  /// Required. The query vector that we are searching on. Must be a vector of
+  /// no more than 2048 dimensions.
+  @$pb.TagNumber(2)
+  $1.Value get queryVector => $_getN(1);
+  @$pb.TagNumber(2)
+  set queryVector($1.Value v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasQueryVector() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearQueryVector() => clearField(2);
+  @$pb.TagNumber(2)
+  $1.Value ensureQueryVector() => $_ensure(1);
+
+  /// Required. The Distance Measure to use, required.
+  @$pb.TagNumber(3)
+  StructuredQuery_FindNearest_DistanceMeasure get distanceMeasure => $_getN(2);
+  @$pb.TagNumber(3)
+  set distanceMeasure(StructuredQuery_FindNearest_DistanceMeasure v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasDistanceMeasure() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDistanceMeasure() => clearField(3);
+
+  /// Required. The number of nearest neighbors to return. Must be a positive
+  /// integer of no more than 1000.
+  @$pb.TagNumber(4)
+  $0.Int32Value get limit => $_getN(3);
+  @$pb.TagNumber(4)
+  set limit($0.Int32Value v) {
+    setField(4, v);
+  }
+
+  @$pb.TagNumber(4)
+  $core.bool hasLimit() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLimit() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Int32Value ensureLimit() => $_ensure(3);
+}
+
 ///  A Firestore query.
 ///
 ///  The query stages are executed in the following order:
@@ -797,6 +938,7 @@ class StructuredQuery extends $pb.GeneratedMessage {
     $core.int? offset,
     Cursor? startAt,
     Cursor? endAt,
+    StructuredQuery_FindNearest? findNearest,
   }) {
     final $result = create();
     if (select != null) {
@@ -822,6 +964,9 @@ class StructuredQuery extends $pb.GeneratedMessage {
     }
     if (endAt != null) {
       $result.endAt = endAt;
+    }
+    if (findNearest != null) {
+      $result.findNearest = findNearest;
     }
     return $result;
   }
@@ -854,6 +999,8 @@ class StructuredQuery extends $pb.GeneratedMessage {
     ..aOM<Cursor>(7, _omitFieldNames ? '' : 'startAt',
         subBuilder: Cursor.create)
     ..aOM<Cursor>(8, _omitFieldNames ? '' : 'endAt', subBuilder: Cursor.create)
+    ..aOM<StructuredQuery_FindNearest>(9, _omitFieldNames ? '' : 'findNearest',
+        subBuilder: StructuredQuery_FindNearest.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -1048,6 +1195,25 @@ class StructuredQuery extends $pb.GeneratedMessage {
   void clearEndAt() => clearField(8);
   @$pb.TagNumber(8)
   Cursor ensureEndAt() => $_ensure(7);
+
+  ///  Optional. A potential Nearest Neighbors Search.
+  ///
+  ///  Applies after all other filters and ordering.
+  ///
+  ///  Finds the closest vector embeddings to the given query vector.
+  @$pb.TagNumber(9)
+  StructuredQuery_FindNearest get findNearest => $_getN(8);
+  @$pb.TagNumber(9)
+  set findNearest(StructuredQuery_FindNearest v) {
+    setField(9, v);
+  }
+
+  @$pb.TagNumber(9)
+  $core.bool hasFindNearest() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearFindNearest() => clearField(9);
+  @$pb.TagNumber(9)
+  StructuredQuery_FindNearest ensureFindNearest() => $_ensure(8);
 }
 
 ///  Count of documents that match the query.
