@@ -5,6 +5,7 @@ import 'package:firedart/generated/google/firestore/v1/document.pb.dart' as fs;
 import 'package:firedart/generated/google/firestore/v1/firestore.pbgrpc.dart';
 import 'package:firedart/generated/google/firestore/v1/query.pb.dart';
 import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 import '../firedart.dart';
 
@@ -20,7 +21,7 @@ class FirestoreGateway {
 
   late FirestoreClient _client;
 
-  late ClientChannel _channel;
+  late GrpcOrGrpcWebClientChannel _channel;
 
   FirestoreGateway(
     String projectId, {
@@ -162,11 +163,11 @@ class FirestoreGateway {
         : null;
     _listenStreamCache.clear();
     _channel = emulator == null
-        ? ClientChannel(
+        ? GrpcOrGrpcWebClientChannel.grpc(
             'firestore.googleapis.com',
             options: ChannelOptions(),
           )
-        : ClientChannel(
+        : GrpcOrGrpcWebClientChannel.grpc(
             emulator.host,
             port: emulator.port,
             options: ChannelOptions(
