@@ -96,8 +96,9 @@ class FirestoreGateway {
     return _mapCollectionStream(_listenStreamCache[path]!);
   }
 
-  /// Create a new [Document] at the given [path] with an optional documentId
-  /// (which is automatically created if not supplied).
+  /// Create a new [Document] at the given [path] with an optional [documentId]
+  /// paramter. If [documentId is not supplied a random id is automatically
+  /// created.
   Future<Document> createDocument(
       String path, String? documentId, fs.Document document) async {
     var split = path.split('/');
