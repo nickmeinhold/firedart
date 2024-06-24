@@ -26,12 +26,12 @@ class FirestoreGateway {
     String projectId, {
     String? databaseId,
     RequestAuthenticator? authenticator,
-    Emulator? emulator,
+    bool useEmulator = false,
   })  : _authenticator = authenticator,
         database =
             'projects/$projectId/databases/${databaseId ?? '(default)'}/documents',
         _listenStreamCache = <String, _ListenStreamWrapper>{} {
-    _setupClient(emulator: emulator);
+    _setupClient(useEmulator: useEmulator);
   }
 
   Future<Page<Document>> getCollection(
@@ -156,19 +156,19 @@ class FirestoreGateway {
     _channel.shutdown();
   }
 
-  void _setupClient({Emulator? emulator}) {
+  void _setupClient({bool useEmulator = false}) {
     final callOptions = _authenticator != null
         ? CallOptions(providers: [_authenticator!])
         : null;
     _listenStreamCache.clear();
-    _channel = emulator == null
+    _channel = useEmulator
         ? ClientChannel(
             'firestore.googleapis.com',
             options: ChannelOptions(),
           )
         : ClientChannel(
-            emulator.host,
-            port: emulator.port,
+            'localhost',
+            port: 4000,
             options: ChannelOptions(
               credentials: ChannelCredentials.insecure(),
             ),
