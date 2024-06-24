@@ -9,8 +9,9 @@ import 'user_gateway.dart';
 class AuthGateway {
   final KeyClient client;
   final TokenProvider tokenProvider;
+  final bool useEmulator;
 
-  AuthGateway(this.client, this.tokenProvider);
+  AuthGateway(this.client, this.tokenProvider, {this.useEmulator = false});
 
   Future<User> signUp(String email, String password) =>
       _auth('signUp', {'email': email, 'password': password})
@@ -45,8 +46,11 @@ class AuthGateway {
 
   Future<Map<String, dynamic>> _post(
       String method, Map<String, Object?> body) async {
-    final requestUrl =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$method';
+    final requestPath = 'identitytoolkit.googleapis.com/v1/accounts:$method';
+
+    final requestUrl = useEmulator
+        ? 'http://localhost:9099/$requestPath'
+        : 'https://$requestPath';
 
     final response = await client.post(
       Uri.parse(requestUrl),
