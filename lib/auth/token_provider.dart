@@ -11,10 +11,11 @@ const _tokenExpirationThreshold = Duration(seconds: 30);
 class TokenProvider {
   final KeyClient client;
   final TokenStore _tokenStore;
+  final bool useEmulator;
 
   final StreamController<bool> _signInStateStreamController;
 
-  TokenProvider(this.client, this._tokenStore)
+  TokenProvider(this.client, this._tokenStore, {this.useEmulator = false})
       : _signInStateStreamController = StreamController<bool>();
 
   String? get userId => _tokenStore.userId;
@@ -53,7 +54,10 @@ class TokenProvider {
 
   Future _refresh() async {
     var response = await client.post(
-      Uri.parse('https://securetoken.googleapis.com/v1/token'),
+      useEmulator
+          ? Uri.parse(
+              'http://localhost:9099/securetoken.googleapis.com/v1/token')
+          : Uri.parse('https://securetoken.googleapis.com/v1/token'),
       body: {
         'grant_type': 'refresh_token',
         'refresh_token': _tokenStore.refreshToken,
