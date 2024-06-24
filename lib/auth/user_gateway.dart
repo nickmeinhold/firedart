@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:firedart/auth/client.dart';
 import 'package:firedart/auth/token_provider.dart';
 
+/// A [UserGateway] holds a UserClient that is made up of a [KeyClient] and a
+/// [TokenProvider] allowing requests to the Firebase Auth API as well as
+/// token storage for allowing authenticated requests.
 class UserGateway {
   final UserClient _client;
 
