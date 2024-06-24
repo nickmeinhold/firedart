@@ -16,7 +16,8 @@ class Emulator {
 /// Keeps a [Firestore] singleton accessible via a global [instance] getter.
 ///
 /// The [FirestoreGateway] member, created during [initialization], allows
-/// creation of [Reference]s, [DocumentReference]s and [CollectionReference]s.
+/// creation of [Reference]s, [QueryReference]s, [DocumentReference]s and
+/// [CollectionReference]s.
 class Firestore {
   static Firestore? _instance;
 
