@@ -55,4 +55,5 @@ jobs:
           echo "const email = '${{ secrets.test_email }}';" >> test/test_config.dart
           echo "const password = '${{ secrets.test_password }}';" >> test/test_config.dart
       - run: dart pub get
+      - run: curl -sL https://firebase.tools | bash
       - run: firebase emulators:exec 'test/run_test.sh' --only firestore --project ${{ secrets.test_project_id }}
