@@ -53,12 +53,6 @@ Future main() async {
   });
 
   group('ApplicationDefaultAuthenticator', () {
-    assert(
-      Platform.environment.containsKey('GOOGLE_APPLICATION_CREDENTIALS'),
-      'GOOGLE_APPLICATION_CREDENTIALS environment variable must be set. '
-      'See the docs: https://cloud.google.com/docs/authentication/application-default-credentials#GAC',
-    );
-
     final auth = ApplicationDefaultAuthenticator(useEmulator: false);
     var firestore = Firestore(projectId, authenticator: auth.authenticate);
 
