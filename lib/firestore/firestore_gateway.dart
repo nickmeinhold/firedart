@@ -163,15 +163,15 @@ class FirestoreGateway {
     _listenStreamCache.clear();
     _channel = useEmulator
         ? ClientChannel(
-            'firestore.googleapis.com',
-            options: ChannelOptions(),
-          )
-        : ClientChannel(
             'localhost',
             port: 4000,
             options: ChannelOptions(
               credentials: ChannelCredentials.insecure(),
             ),
+          )
+        : ClientChannel(
+            'firestore.googleapis.com',
+            options: ChannelOptions(),
           );
     _client = FirestoreClient(
       _channel,
