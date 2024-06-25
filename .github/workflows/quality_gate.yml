@@ -46,7 +46,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run:       
       - run: curl -sL https://firebase.tools | bash
       - run: firebase emulators:exec './test/emulators_true_script.sh'  --only firestore --import=test/emulators-data --project ${{ secrets.test_project_id }}
       - uses: dart-lang/setup-dart@v1
