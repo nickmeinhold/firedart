@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firedart/auth/token_provider.dart';
+import 'package:firedart/shared/emulator.dart';
 import 'package:http/http.dart' as http;
 
 class VerboseClient extends http.BaseClient {
@@ -38,9 +39,9 @@ class VerboseClient extends http.BaseClient {
 class KeyClient extends http.BaseClient {
   final http.Client client;
   final String apiKey;
-  final bool useEmulator;
+  final Emulator? emulator;
 
-  KeyClient(this.client, this.apiKey, {this.useEmulator = false});
+  KeyClient(this.client, this.apiKey, {this.emulator});
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
@@ -48,7 +49,7 @@ class KeyClient extends http.BaseClient {
       var query = Map<String, String>.from(request.url.queryParameters)
         ..['key'] = apiKey;
 
-      var url = useEmulator
+      var url = emulator == null
           ? Uri.http(
               request.url.authority,
               request.url.path,

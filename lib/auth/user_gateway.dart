@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:firedart/auth/client.dart';
 import 'package:firedart/auth/token_provider.dart';
+import 'package:firedart/shared/emulator.dart';
 
 class UserGateway {
   final UserClient _client;
-  final bool useEmulator;
+  final Emulator? emulator;
 
-  UserGateway(KeyClient client, TokenProvider tokenProvider,
-      {this.useEmulator = false})
+  UserGateway(KeyClient client, TokenProvider tokenProvider, {this.emulator})
       : _client = UserClient(client, tokenProvider);
 
   Future<void> requestEmailVerification({String? langCode}) => _post(
@@ -43,8 +43,8 @@ class UserGateway {
   Future<Map<String, dynamic>> _post<T>(String method, Map<String, String> body,
       {Map<String, String>? headers}) async {
     final requestPath = 'identitytoolkit.googleapis.com/v1/accounts:$method';
-    final requestUrl = useEmulator
-        ? 'http://localhost:9099/$requestPath'
+    final requestUrl = emulator != null
+        ? 'http://${emulator!.host}:${emulator!.port}/$requestPath'
         : 'https://$requestPath';
 
     var response = await _client.post(

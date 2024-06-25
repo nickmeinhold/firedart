@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firedart/auth/client.dart';
 import 'package:firedart/auth/token_provider.dart';
+import 'package:firedart/shared/emulator.dart';
 
 import 'exceptions.dart';
 import 'user_gateway.dart';
@@ -9,9 +10,9 @@ import 'user_gateway.dart';
 class AuthGateway {
   final KeyClient client;
   final TokenProvider tokenProvider;
-  final bool useEmulator;
+  final Emulator? emulator;
 
-  AuthGateway(this.client, this.tokenProvider, {this.useEmulator = false});
+  AuthGateway(this.client, this.tokenProvider, {this.emulator});
 
   Future<User> signUp(String email, String password) =>
       _auth('signUp', {'email': email, 'password': password})
@@ -48,8 +49,8 @@ class AuthGateway {
       String method, Map<String, Object?> body) async {
     final requestPath = 'identitytoolkit.googleapis.com/v1/accounts:$method';
 
-    final requestUrl = useEmulator
-        ? 'http://localhost:9099/$requestPath'
+    final requestUrl = emulator != null
+        ? 'http://${emulator!.host}:${emulator!.port}/$requestPath'
         : 'https://$requestPath';
 
     final response = await client.post(
