@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:firedart/firedart.dart';
 import 'package:firedart/firestore/application_default_authenticator.dart';
